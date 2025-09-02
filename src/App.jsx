@@ -1,10 +1,20 @@
+import { useState } from "react"
+import Calculadora from "./components/calculadora"
+import Header from "./components/Header"
 
 function App() {
+
+  // hook para atuaizar numero na tela
+  const [resultado,setresultado] = useState(0)
+ 
+
 
 
   return (
     <>
-     <h1>ola</h1>
+     <Header/>
+     <Calculadora/>
+     
     </>
   )
 }
