@@ -6,6 +6,22 @@
 }
 
 button{
-    padding: 20px;
-    width: 40px;
+    width: 3em;
+    height: 3em;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 2em;
+    margin: 0.3em;
+}
+button:hover{
+    cursor: pointer;
+}
+
+.numeros{
+    padding: 10px;
+    background: rgb(168, 160, 160);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
