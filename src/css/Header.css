@@ -1,0 +1,20 @@
+.header{
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content:center;
+    color: aquamarine;
+}
+.header:hover{
+    text-decoration:wavy;
+    color: rgb(37, 27, 27);
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    color: blue;
+    width: 400px;
+    height: 400px;
+    border-radius: 40px;
+    padding: 40px;
+}

@@ -1,10 +1,13 @@
 import React from "react";
+import "..//css/Header.css"
+import "..//css/Calculadora.css"
 
-export default function Header() {
+function Header() {
     return (
-        <div>
-            <h1>Header</h1>
+        <div className="header">
+            <h1>Calculadora</h1>
         </div>
     )
 
 }
+export default Header
