@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Calculadora from "./components/calculadora"
+import Calculadora from "./components/Calculadora"
 import Header from "./components/Header"
 
 function App() {
