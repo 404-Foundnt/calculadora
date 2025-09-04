@@ -5,6 +5,10 @@ export default function Calculadora() {
     return (
         <section>
             <div className="numeros">
+                
+                <div>
+                <h1 className="resultado">001</h1>
+                    
                 <div>
                 <button>7</button>
                 <button>8</button>
@@ -30,7 +34,8 @@ export default function Calculadora() {
                 <button>=</button>
                 <button>+</button>
                 </div>
-  
+
+                </div>
             </div>
         </section>
     )
