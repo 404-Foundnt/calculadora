@@ -1,54 +1,54 @@
-:root{
-  --latrao:#c69c3f;
-  --latrao-esc:#8e6a25;
-  --cobre:#b46b3b;
-  --cobre-esc:#7a3f21;
-  --aco:#7a7f87;
-  --grafite:#1b1915;
-  --fundo:#12100d;
-  --vidro:#15110e;
-  --vidro-borda:#3a2f27;
-  --luz:#f3e4bf;
-  --sombra:rgba(0,0,0,.5);
+:root {
+  --latrao: #c69c3f;
+  --latrao-esc: #8e6a25;
+  --cobre: #b46b3b;
+  --cobre-esc: #7a3f21;
+  --aco: #7a7f87;
+  --grafite: #1b1915;
+  --fundo: #12100d;
+  --vidro: #15110e;
+  --vidro-borda: #3a2f27;
+  --luz: #f3e4bf;
+  --sombra: rgba(0, 0, 0, 0.5);
   --tx: ui-serif, Georgia, "Times New Roman", serif;
   --tx-mono: ui-monospace, Menlo, Consolas, "Liberation Mono", monospace;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing:border-box;
+* {
+  box-sizing: border-box;
+}
+button {
+  font: inherit;
 }
 
-button{
-    width: 3em;
-    height: 3em;
-    font-size: 1.5em;
-    border: none;
-    border-radius: 2em;
-    margin: 0.3em;
-}
-button:hover{
-    cursor: pointer;
-    background: rgb(214, 211, 211);
-}
-
-.numeros{
-    padding: 10px;
-    background: rgb(168, 160, 160);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /* Altura da calculadora */
-    margin-top: 5em;
+body {
+  background: radial-gradient(
+      1200px 800px at 10% -10%,
+      rgba(255, 255, 255, 0.05),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 110% 10%,
+      rgba(255, 255, 255, 0.05),
+      transparent 60%
+    ),
+    linear-gradient(135deg, #0f0e0c, #171410 55%, #0f0e0c);
+  color: var(--luz);
+  font-family: var(--tx);
 }
 
-.resultado{
-    display: flex;
-    justify-content: flex-end;
-    font-size: 3em;
-    /* colocando backgrond para ver o espaço(pode apagar) */
-    background: rgb(131, 87, 87);
-    padding: 10px 20px;
+section {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+}
+
+.numeros {
+  /* “placa” de latão com parafusos nas quinas */
+  background: linear-gradient(160deg, #2a241e, #211c18 50%, #1a1612);
+  padding: 18px;
+  border-radius: 22px;
+  position: relative;
+  box-shadow: inset 0 0 0 2px #2a241e, 0 20px 50px var(--sombra), 0 2px 0 0 #0d0c0a;
+  margin-top: 0;
 }
