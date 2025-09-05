@@ -80,37 +80,49 @@ section {
     inset 0 -10px 40px rgba(0,0,0,.5),
     0 1px 0 #000;
   min-width: 320px;
+  position: relative;
 }
 
 .resultado{
+  /* vidro fumê com leve vinheta */
   font-family: var(--tx-mono);
   font-weight: 600;
   letter-spacing: .03em;
-  background: linear-gradient(180deg, #181411, #0f0d0b), radial-gradient(180px 60px at 80% 5%, rgba(255,255,255,.06), transparent 60%);
+  background:
+    linear-gradient(180deg, #181411, #0f0d0b),
+    radial-gradient(180px 60px at 80% 5%, rgba(255,255,255,.06), transparent 60%);
   color: #e9ddc1;
   border: 1px solid var(--vidro-borda);
-  box-shadow: inset 0 0 18px rgba(0,0,0,.7), 0 6px 20px rgba(0,0,0,.6);
+  box-shadow:
+    inset 0 0 18px rgba(0,0,0,.7),
+    0 6px 20px rgba(0,0,0,.6);
   padding: 18px 20px;
   border-radius: 10px;
   text-align: right;
   font-size: clamp(1.8rem, 5vw, 3rem);
-  min-height: 3.1rem;
+  min-height: 3.1rem; /* reserva altura p/ nºs pequenos */
   overflow: hidden;
   white-space: nowrap;
   text-shadow: 0 0 6px rgba(236,210,150,.25);
   position: relative;
 }
 
+/* brilho/“reflexo” diagonal no vidro */
 .resultado::before{
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(20deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.09) 8%, rgba(255,255,255,0) 18%, rgba(255,255,255,0) 100%);
+    linear-gradient(20deg,
+      rgba(255,255,255,.06) 0%,
+      rgba(255,255,255,.09) 8%,
+      rgba(255,255,255,0) 18%,
+      rgba(255,255,255,0) 100%);
   mix-blend-mode: screen;
   pointer-events: none;
 }
 
+/* faixa de brilho superior */
 .resultado::after{
   content: "";
   position: absolute;
@@ -153,6 +165,10 @@ button{
   text-shadow: 0 1px 0 rgba(255,255,255,.2);
   transition: transform .05s ease, filter .15s ease, box-shadow .15s ease;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 button:hover{
   filter: brightness(1.03) saturate(1.05);
@@ -191,7 +207,6 @@ button:active{
   color: #191613;
 }
 
-
 .numeros > div > div:last-child > button:nth-child(2){
   grid-column: span 2;
 }
@@ -201,6 +216,62 @@ button:focus-visible{
   outline-offset: 2px;
 }
 
+/* Engrenagens decorativas — canto superior esquerdo e inferior direito */
+.numeros > div::before,
+.numeros > div::after{
+  content:"";
+  position:absolute;
+  width: 84px; height: 84px;
+  pointer-events: none;
+  opacity: .9;
+  background:
+    radial-gradient(circle at 50% 50%, #000 0 24px, transparent 25px),
+    radial-gradient(closest-side, var(--latrao) 0 60%, var(--latrao-esc) 61% 100%);
+  -webkit-mask:
+    radial-gradient(circle 26px at 50% 50%, transparent 98%, #000 100%),
+    repeating-conic-gradient(#000 0deg 12deg, transparent 12deg 24deg);
+  -webkit-mask-composite: xor;
+  mask:
+    radial-gradient(circle 26px at 50% 50%, transparent 98%, #000 100%),
+    repeating-conic-gradient(#000 0deg 12deg, transparent 12deg 24deg);
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.45));
+}
+
+/* posição e rotação da engrenagem de cima/esquerda */
+.numeros > div::before{
+  top: -22px; left: -22px;
+  transform: rotate(8deg);
+}
+
+/* posição e rotação da engrenagem de baixo/direita */
+.numeros > div::after{
+  right: -26px; bottom: -26px;
+  transform: rotate(-12deg);
+  background:
+    radial-gradient(circle at 50% 50%, #000 0 24px, transparent 25px),
+    radial-gradient(closest-side, var(--cobre) 0 60%, var(--cobre-esc) 61% 100%);
+}
+
+.numeros:hover > div::before{
+  animation: gear-spin 12s linear infinite;
+}
+.numeros:hover > div::after{
+  animation: gear-spin-rev 14s linear infinite;
+}
+
+@keyframes gear-spin{
+  to{ transform: rotate(368deg); }
+}
+@keyframes gear-spin-rev{
+  to{ transform: rotate(-372deg); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .numeros:hover > div::before,
+  .numeros:hover > div::after{
+    animation: none;
+  }
+}
 
 @media (max-width: 380px){
   .numeros > div{ min-width: 280px; }
