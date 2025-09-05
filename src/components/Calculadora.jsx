@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/Calculadora.css";
 
 export default function Calculadora() {
@@ -15,12 +15,18 @@ export default function Calculadora() {
   const toText = (num, maxFrac = 10) => {
     if (!isFinite(num)) return "Erro";
     const r = roundTo(num, maxFrac);
-    const s = r.toLocaleString("pt-BR", {
+    let s = r.toLocaleString("pt-BR", {
       useGrouping: false,
       maximumFractionDigits: maxFrac,
     });
-    return s.replace(/,?0+$/, "").replace(/,$/, "");
+    if (s.includes(",")) {
+      s = s.replace(/0+$/, "");
+      s = s.replace(/,$/, "");
+    }
+    return s;
   };
+
+  const isDigit = (ch) => /^[0-9]$/.test(ch);
 
   const adicionarNumero = (num) => {
     if (display === "Erro") {
@@ -40,11 +46,27 @@ export default function Calculadora() {
       setDisplay(display + ",");
       return;
     }
-    if (display === "0") setDisplay(num);
-    else setDisplay(display + num);
+    if (display === "0") {
+      if (num === "0") return;
+      setDisplay(num);
+      return;
+    }
+    if (display === "-0") {
+      if (num === "0") return;
+      setDisplay("-" + num);
+      return;
+    }
+    setDisplay(display + num);
   };
 
   const escolherOperacao = (op) => {
+    if (display === "Erro") {
+      setDisplay("0");
+      setValorAnterior(null);
+      setOperacao(null);
+      setAguardandoSegundoOperando(false);
+      return;
+    }
     if (operacao && !aguardandoSegundoOperando && valorAnterior !== null) {
       const n1 = toNumber(valorAnterior);
       const n2 = toNumber(display);
@@ -148,11 +170,29 @@ export default function Calculadora() {
     setAguardandoSegundoOperando(false);
   };
 
+  useEffect(() => {
+    const onKey = (e) => {
+      const k = e.key;
+      if (isDigit(k)) return adicionarNumero(k);
+      if (k === "," || k === ".") return adicionarNumero(",");
+      if (k === "+") return escolherOperacao("+");
+      if (k === "-") return escolherOperacao("-");
+      if (k === "*") return escolherOperacao("*");
+      if (k === "/") return escolherOperacao("/");
+      if (k === "Enter" || k === "=") return calcularResultado();
+      if (k === "Backspace") return backspace();
+      if (k.toLowerCase() === "c" || k === "Escape") return limpar();
+      if (k === "%") return porcentagem();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [display, valorAnterior, operacao, aguardandoSegundoOperando]);
+
   return (
     <section>
       <div className="numeros">
         <div>
-          <h1 className="resultado">{display}</h1>
+          <h1 className="resultado" aria-live="polite">{display}</h1>
           <div>
             <button onClick={limpar}>C</button>
             <button onClick={backspace}>⌫</button>
