@@ -170,3 +170,19 @@ button:active{
     radial-gradient(160% 240% at 10% -10%, rgba(255,255,255,.2), transparent 40%);
   color: #191613;
 }
+
+
+.numeros > div > div:last-child > button:nth-child(2){
+  grid-column: span 2;
+}
+
+button:focus-visible{
+  outline: 2px solid #e3c16f;
+  outline-offset: 2px;
+}
+
+
+@media (max-width: 380px){
+  .numeros > div{ min-width: 280px; }
+  button{ font-size: 1rem; padding: 10px 0; }
+}
