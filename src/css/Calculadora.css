@@ -59,6 +59,8 @@ section {
   inset: 10px;
   border-radius: 18px;
   box-shadow: inset 0 0 0 1px #2c271f, inset 0 0 30px rgba(0,0,0,.6);
+  pointer-events: none;   /* <- IMPORTANTE */
+  z-index: 0;             /* <- fique atrás do conteúdo */
 }
 
 .numeros:has(.resultado)::after{
@@ -70,6 +72,7 @@ section {
   background-repeat: no-repeat;
 }
 
+
 .numeros > div{
   background: linear-gradient(180deg, #302820, #231e1a 60%, #1a1612);
   border-radius: 16px;
@@ -80,6 +83,7 @@ section {
     0 1px 0 #000;
   min-width: 320px;
   position: relative;
+  z-index: 1;             /* <- acima dos ::before/::after */
 }
 
 .resultado{
