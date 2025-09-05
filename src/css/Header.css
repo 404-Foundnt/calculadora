@@ -1,10 +1,19 @@
 .header{
     align-items: center;
-    margin-bottom: 20px;
     justify-content:center;
-    color: aquamarine;
+    color:#c69c3f;
+    display: flex;
+    margin-bottom: 12px;
+    font: ui-serif, Georgia, "Times New Roman", serif;
+    font: ui-monospace, Menlo, Consolas, "Liberation Mono", monospace;
 }
 .header:hover{
     text-decoration:underline;
-    color: black;
+    color:  #8e6a25;
+}
+
+.header .logo {
+  max-width: 200px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.6));
 }

@@ -43,6 +43,8 @@ section {
   min-height: 100dvh;
 }
 
+
+
 .numeros {
   background: linear-gradient(160deg, #2a241e, #211c18 50%, #1a1612);
   padding: 18px;
@@ -59,7 +61,7 @@ section {
   inset: 10px;
   border-radius: 18px;
   box-shadow: inset 0 0 0 1px #2c271f, inset 0 0 30px rgba(0,0,0,.6);
-  pointer-events: none;   /* <- IMPORTANTE */
+  pointer-events: none;   /* <- IMPORTANTE, essa bagaça ficar aqui, senão não funciona*/
   z-index: 0;             /* <- fique atrás do conteúdo */
 }
 
