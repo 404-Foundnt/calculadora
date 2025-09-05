@@ -134,3 +134,39 @@ button{
   transition: transform .05s ease, filter .15s ease, box-shadow .15s ease;
   cursor: pointer;
 }
+button:hover{
+  filter: brightness(1.03) saturate(1.05);
+}
+
+button:active{
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 8px rgba(0,0,0,.35),
+    0 2px 6px rgba(0,0,0,.4);
+}
+
+.numeros > div > div:last-child > button:last-child{
+  background:
+    linear-gradient(160deg, var(--cobre), var(--cobre-esc)),
+    radial-gradient(160% 240% at 10% -10%, rgba(255,255,255,.25), transparent 40%);
+  color: #f8ead1;
+  text-shadow: 0 0 6px rgba(255,190,120,.25);
+}
+
+.numeros > div > div:nth-of-type(2) > button:nth-child(4),
+.numeros > div > div:nth-of-type(3) > button:nth-child(4),
+.numeros > div > div:nth-of-type(4) > button:nth-child(4),
+.numeros > div > div:nth-of-type(5) > button:nth-child(4){
+  background:
+    linear-gradient(160deg, #8a8f97, #5f646b),
+    radial-gradient(160% 240% at 10% -10%, rgba(255,255,255,.2), transparent 40%);
+  color: #1a1612;
+}
+
+/* Primeira linha (C, ⌫, %, /): estilo “aço” */
+.numeros > div > div:nth-of-type(1) > button{
+  background:
+    linear-gradient(160deg, #a3a7ad, #6c7076),
+    radial-gradient(160% 240% at 10% -10%, rgba(255,255,255,.2), transparent 40%);
+  color: #191613;
+}
