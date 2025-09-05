@@ -7,50 +7,62 @@ export default function Calculadora() {
   const [operacao, setOperacao] = useState(null);
   const [aguardandoSegundoOperando, setAguardandoSegundoOperando] = useState(false);
 
+  const roundTo = (n, p = 10) =>
+    Math.round((n + Number.EPSILON) * 10 ** p) / 10 ** p;
+
   const toNumber = (txt) => parseFloat((txt || "0").replace(",", "."));
-  const toText = (num) => {
-    if (Number.isNaN(num)) return "Erro";
-    const txt = num.toString().replace(".", ",");
-    return txt;
+
+  const toText = (num, maxFrac = 10) => {
+    if (!isFinite(num)) return "Erro";
+    const r = roundTo(num, maxFrac);
+    const s = r.toLocaleString("pt-BR", {
+      useGrouping: false,
+      maximumFractionDigits: maxFrac,
+    });
+    return s.replace(/,?0+$/, "").replace(/,$/, "");
   };
 
   const adicionarNumero = (num) => {
     if (display === "Erro") {
-      if (num === ",") {
-        setDisplay("0,");
-      } else {
-        setDisplay(num);
-      }
+      if (num === ",") setDisplay("0,");
+      else setDisplay(num);
       setAguardandoSegundoOperando(false);
       return;
     }
-
     if (aguardandoSegundoOperando) {
       if (num === ",") setDisplay("0,");
       else setDisplay(num);
       setAguardandoSegundoOperando(false);
       return;
     }
-
     if (num === ",") {
       if (display.includes(",")) return;
       setDisplay(display + ",");
       return;
     }
-
     if (display === "0") setDisplay(num);
     else setDisplay(display + num);
   };
 
   const escolherOperacao = (op) => {
     if (operacao && !aguardandoSegundoOperando && valorAnterior !== null) {
-      calcularResultado();
-      setOperacao(op);
-      setValorAnterior(display);
-      setAguardandoSegundoOperando(true);
+      const n1 = toNumber(valorAnterior);
+      const n2 = toNumber(display);
+      let r;
+      switch (operacao) {
+        case "+": r = n1 + n2; break;
+        case "-": r = n1 - n2; break;
+        case "*": r = n1 * n2; break;
+        case "/": r = n2 !== 0 ? n1 / n2 : NaN; break;
+        default: return;
+      }
+      const texto = toText(r, 10);
+      setDisplay(texto);
+      setValorAnterior(texto === "Erro" ? null : texto);
+      setOperacao(texto === "Erro" ? null : op);
+      setAguardandoSegundoOperando(texto !== "Erro");
       return;
     }
-
     setValorAnterior(display);
     setOperacao(op);
     setAguardandoSegundoOperando(true);
@@ -58,11 +70,9 @@ export default function Calculadora() {
 
   const calcularResultado = () => {
     if (valorAnterior === null || operacao === null) return;
-
     const num1 = toNumber(valorAnterior);
     const num2 = toNumber(display);
     let resultado;
-
     switch (operacao) {
       case "+": resultado = num1 + num2; break;
       case "-": resultado = num1 - num2; break;
@@ -70,8 +80,7 @@ export default function Calculadora() {
       case "/": resultado = num2 !== 0 ? num1 / num2 : NaN; break;
       default: return;
     }
-
-    const texto = toText(resultado);
+    const texto = toText(resultado, 10);
     setDisplay(texto);
     if (texto === "Erro") {
       setValorAnterior(null);
@@ -79,7 +88,6 @@ export default function Calculadora() {
       setAguardandoSegundoOperando(false);
       return;
     }
-
     setValorAnterior(texto);
     setOperacao(null);
     setAguardandoSegundoOperando(true);
@@ -126,19 +134,17 @@ export default function Calculadora() {
 
   const porcentagem = () => {
     if (display === "Erro") return;
-
     if (operacao && valorAnterior !== null) {
       const base = toNumber(valorAnterior);
       const pct = toNumber(display) / 100;
       const valor = base * pct;
-      const txt = toText(valor);
+      const txt = toText(valor, 10);
       setDisplay(txt);
       setAguardandoSegundoOperando(false);
       return;
     }
-
     const valor = toNumber(display) / 100;
-    setDisplay(toText(valor));
+    setDisplay(toText(valor, 10));
     setAguardandoSegundoOperando(false);
   };
 
@@ -147,7 +153,6 @@ export default function Calculadora() {
       <div className="numeros">
         <div>
           <h1 className="resultado">{display}</h1>
-
           <div>
             <button onClick={limpar}>C</button>
             <button onClick={backspace}>⌫</button>
