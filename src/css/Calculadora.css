@@ -44,7 +44,6 @@ section {
 }
 
 .numeros {
-  /* “placa” de latão com parafusos nas quinas */
   background: linear-gradient(160deg, #2a241e, #211c18 50%, #1a1612);
   padding: 18px;
   border-radius: 22px;
@@ -84,7 +83,6 @@ section {
 }
 
 .resultado{
-  /* vidro fumê com leve vinheta */
   font-family: var(--tx-mono);
   font-weight: 600;
   letter-spacing: .03em;
@@ -100,14 +98,13 @@ section {
   border-radius: 10px;
   text-align: right;
   font-size: clamp(1.8rem, 5vw, 3rem);
-  min-height: 3.1rem; /* reserva altura p/ nºs pequenos */
+  min-height: 3.1rem;
   overflow: hidden;
   white-space: nowrap;
   text-shadow: 0 0 6px rgba(236,210,150,.25);
   position: relative;
 }
 
-/* brilho/“reflexo” diagonal no vidro */
 .resultado::before{
   content: "";
   position: absolute;
@@ -122,7 +119,6 @@ section {
   pointer-events: none;
 }
 
-/* faixa de brilho superior */
 .resultado::after{
   content: "";
   position: absolute;
@@ -136,7 +132,6 @@ section {
   pointer-events: none;
 }
 
-/* Rows já são <div>s. */
 .numeros > div > div + div{ margin-top: 10px; }
 
 .numeros > div > div:not(:first-child){
@@ -199,7 +194,6 @@ button:active{
   color: #1a1612;
 }
 
-/* Primeira linha (C, ⌫, %, /): estilo “aço” */
 .numeros > div > div:nth-of-type(1) > button{
   background:
     linear-gradient(160deg, #a3a7ad, #6c7076),
@@ -216,59 +210,35 @@ button:focus-visible{
   outline-offset: 2px;
 }
 
-/* Engrenagens decorativas — canto superior esquerdo e inferior direito */
 .numeros > div::before,
 .numeros > div::after{
   content:"";
   position:absolute;
   width: 84px; height: 84px;
   pointer-events: none;
-  opacity: .9;
-  background:
-    radial-gradient(circle at 50% 50%, #000 0 24px, transparent 25px),
-    radial-gradient(closest-side, var(--latrao) 0 60%, var(--latrao-esc) 61% 100%);
-  -webkit-mask:
-    radial-gradient(circle 26px at 50% 50%, transparent 98%, #000 100%),
-    repeating-conic-gradient(#000 0deg 12deg, transparent 12deg 24deg);
-  -webkit-mask-composite: xor;
-  mask:
-    radial-gradient(circle 26px at 50% 50%, transparent 98%, #000 100%),
-    repeating-conic-gradient(#000 0deg 12deg, transparent 12deg 24deg);
+  background-repeat: no-repeat;
+  background-size: contain;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,.45));
 }
 
-/* posição e rotação da engrenagem de cima/esquerda */
 .numeros > div::before{
   top: -22px; left: -22px;
-  transform: rotate(8deg);
+  animation: gear-spin 12s linear infinite;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 84'><defs><linearGradient id='gLat' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23c69c3f'/><stop offset='1' stop-color='%238e6a25'/></linearGradient></defs><circle cx='42' cy='42' r='34' fill='url(%23gLat)'/><g fill='url(%23gLat)'><rect x='40' y='2'  width='4' height='12' rx='1'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(30 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(60 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(90 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(120 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(150 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(180 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(210 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(240 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(270 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(300 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(330 42 42)'/></g><circle cx='42' cy='42' r='24' fill='%231a1612'/><circle cx='42' cy='42' r='7' fill='%23000000' opacity='.85'/></svg>");
 }
 
-/* posição e rotação da engrenagem de baixo/direita */
 .numeros > div::after{
   right: -26px; bottom: -26px;
-  transform: rotate(-12deg);
-  background:
-    radial-gradient(circle at 50% 50%, #000 0 24px, transparent 25px),
-    radial-gradient(closest-side, var(--cobre) 0 60%, var(--cobre-esc) 61% 100%);
-}
-
-.numeros:hover > div::before{
-  animation: gear-spin 12s linear infinite;
-}
-.numeros:hover > div::after{
   animation: gear-spin-rev 14s linear infinite;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 84'><defs><linearGradient id='gCob' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23b46b3b'/><stop offset='1' stop-color='%237a3f21'/></linearGradient></defs><circle cx='42' cy='42' r='34' fill='url(%23gCob)'/><g fill='url(%23gCob)'><rect x='40' y='2'  width='4' height='12' rx='1'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(30 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(60 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(90 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(120 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(150 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(180 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(210 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(240 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(270 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(300 42 42)'/><rect x='40' y='2'  width='4' height='12' rx='1' transform='rotate(330 42 42)'/></g><circle cx='42' cy='42' r='24' fill='%231a1612'/><circle cx='42' cy='42' r='7' fill='%23000000' opacity='.85'/></svg>");
 }
 
-@keyframes gear-spin{
-  to{ transform: rotate(368deg); }
-}
-@keyframes gear-spin-rev{
-  to{ transform: rotate(-372deg); }
-}
+@keyframes gear-spin{ to{ transform: rotate(360deg); } }
+@keyframes gear-spin-rev{ to{ transform: rotate(-360deg); } }
 
 @media (prefers-reduced-motion: reduce){
-  .numeros:hover > div::before,
-  .numeros:hover > div::after{
+  .numeros > div::before,
+  .numeros > div::after{
     animation: none;
   }
 }
