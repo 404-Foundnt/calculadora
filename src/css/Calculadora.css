@@ -1,3 +1,18 @@
+:root{
+  --latrao:#c69c3f;
+  --latrao-esc:#8e6a25;
+  --cobre:#b46b3b;
+  --cobre-esc:#7a3f21;
+  --aco:#7a7f87;
+  --grafite:#1b1915;
+  --fundo:#12100d;
+  --vidro:#15110e;
+  --vidro-borda:#3a2f27;
+  --luz:#f3e4bf;
+  --sombra:rgba(0,0,0,.5);
+  --tx: ui-serif, Georgia, "Times New Roman", serif;
+  --tx-mono: ui-monospace, Menlo, Consolas, "Liberation Mono", monospace;
+}
 
 *{
     margin: 0;
