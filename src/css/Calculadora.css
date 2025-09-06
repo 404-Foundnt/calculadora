@@ -43,8 +43,6 @@ section {
   min-height: 100dvh;
 }
 
-
-
 .numeros {
   background: linear-gradient(160deg, #2a241e, #211c18 50%, #1a1612);
   padding: 18px;
@@ -73,7 +71,6 @@ section {
     radial-gradient(circle at calc(100% - 18px) calc(100% - 18px), #000 0 5px, #5c4a2f 6px 8px, transparent 9px) bottom right;
   background-repeat: no-repeat;
 }
-
 
 .numeros > div{
   background: linear-gradient(180deg, #302820, #231e1a 60%, #1a1612);
@@ -105,8 +102,12 @@ section {
   text-align: right;
   font-size: clamp(1.8rem, 5vw, 3rem);
   min-height: 3.1rem;
-  overflow: hidden;
+
+  /* ajuste para números longos */
   white-space: nowrap;
+  overflow-x: auto;   /* <- antes era hidden */
+  overflow-y: hidden;
+
   text-shadow: 0 0 6px rgba(236,210,150,.25);
   position: relative;
 }
@@ -252,4 +253,19 @@ button:focus-visible{
 @media (max-width: 380px){
   .numeros > div{ min-width: 280px; }
   button{ font-size: 1rem; padding: 10px 0; }
+}
+
+/* Scrollbar discreta no display (opcional) */
+.resultado::-webkit-scrollbar { height: 6px; }
+.resultado::-webkit-scrollbar-track {
+  background: #0f0d0b;
+  border-radius: 6px;
+}
+.resultado::-webkit-scrollbar-thumb {
+  background: #3a2f27;
+  border-radius: 6px;
+}
+.resultado {
+  scrollbar-color: #3a2f27 #0f0d0b;
+  scrollbar-width: thin;
 }

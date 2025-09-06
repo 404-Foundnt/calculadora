@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../css/Calculadora.css";
 
 export default function Calculadora() {
@@ -6,6 +6,9 @@ export default function Calculadora() {
   const [valorAnterior, setValorAnterior] = useState(null);
   const [operacao, setOperacao] = useState(null);
   const [aguardandoSegundoOperando, setAguardandoSegundoOperando] = useState(false);
+
+  const MAX_DIGITS = 15; // limite de dígitos úteis
+  const usefulLen = (txt) => (txt || "").replace(/[-,]/g, "").length;
 
   const roundTo = (n, p = 10) =>
     Math.round((n + Number.EPSILON) * 10 ** p) / 10 ** p;
@@ -46,6 +49,10 @@ export default function Calculadora() {
       setDisplay(display + ",");
       return;
     }
+
+    // 🚨 limita a 15 dígitos úteis
+    if (usefulLen(display) >= MAX_DIGITS) return;
+
     if (display === "0") {
       if (num === "0") return;
       setDisplay(num);
@@ -170,6 +177,12 @@ export default function Calculadora() {
     setAguardandoSegundoOperando(false);
   };
 
+  const displayRef = useRef(null);
+  useEffect(() => {
+    const el = displayRef.current;
+    if (el) el.scrollLeft = el.scrollWidth;
+  }, [display]);
+
   useEffect(() => {
     const onKey = (e) => {
       const k = e.key;
@@ -192,7 +205,13 @@ export default function Calculadora() {
     <section>
       <div className="numeros">
         <div>
-          <h1 className="resultado" aria-live="polite">{display}</h1>
+          <h1
+            ref={displayRef}
+            className="resultado"
+            aria-live="polite"
+          >
+            {display}
+          </h1>
           <div>
             <button onClick={limpar}>C</button>
             <button onClick={backspace}>⌫</button>
